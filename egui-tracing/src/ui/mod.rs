@@ -34,6 +34,7 @@ impl Logs {
 
 impl Widget for Logs {
     fn ui(self, ui: &mut egui::Ui) -> Response {
+        use core::fmt::Write;
         let state = ui.memory_mut(|mem| {
             let state_mem_id = ui.id();
             mem.data
@@ -136,10 +137,10 @@ impl Widget for Logs {
                                 continue;
                             }
                             if key.starts_with("log.") {
-                                log_message.push_str(&format!("\n {}: {}", key, value));
+                                write!(log_message, "\n {key}: {value}").expect("Failed to write log message");
                             } else {
-                                short_message.push_str(&format!(", {}: {}", key, value));
-                                complete_message.push_str(&format!("\n {}: {}", key, value));
+                                write!(short_message,", {key}: {value}").expect("Failed to write log message");
+                                write!(complete_message, "\n {key}: {value}").expect("Failed to write log message");
                             }
                         }
 

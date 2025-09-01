@@ -13,8 +13,7 @@ impl Ellipse for String {
         let mut trucated = self
             .graphemes(true)
             .take(len)
-            .collect::<Vec<&str>>()
-            .join("");
+            .collect::<String>();
         trucated.push_str("...");
 
         trucated
